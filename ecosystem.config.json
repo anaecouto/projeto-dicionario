@@ -1,0 +1,48 @@
+{
+  "apps": [{
+    "name": "crediban-api",
+    "script": "yarn start",
+    "time": true,
+    "instances": 1,
+    "autorestart": true,
+    "max_restarts": 50,
+    "watch": false,
+    "max_memory_restart": "180M",
+    "node_args": [
+      "--max_old_space_size=200"
+    ],
+    "env": {
+      "PORT": 9000,
+      "TYPEORM_CONNECTION": "process.env.TYPEORM_CONNECTION",
+      "TYPEORM_URL": "process.env.TYPEORM_URL",
+      "TYPEORM_SYNCHRONIZE": "process.env.TYPEORM_SYNCHRONIZE",
+      "TYPEORM_ENTITIES": "process.env.TYPEORM_ENTITIES",
+      "TYPEORM_MIGRATIONS": "process.env.TYPEORM_MIGRATIONS",
+      "TYPEORM_MIGRATIONS_DIR": "process.env.TYPEORM_MIGRATIONS_DIR",
+      "TYPEORM_ENTITIES_DIR": "process.env.TYPEORM_ENTITIES_DIR",
+      "JWT_SECRET": "process.env.JWT_SECRE"
+    }
+  }],
+  "deploy": {
+    "production": {
+      "user": "ubuntu",
+      "host": "ec2-54-94-0-22.sa-east-1.compute.amazonaws.com",
+      "key": "deploy.key",
+      "ref": "origin/main",
+      "repo": "https://joaopnj:!Merda123@github.com/credibandigital/crediban-api.git",
+      "path": "/home/ubuntu/crediban-api",
+      "post-deploy": "yarn && pm2 startOrRestart ecosystem.config.json --env production && pm2 save",
+      "env": {
+        "PORT": 9000,
+        "TYPEORM_CONNECTION": "process.env.TYPEORM_CONNECTION",
+        "TYPEORM_URL": "process.env.TYPEORM_URL",
+        "TYPEORM_SYNCHRONIZE": "process.env.TYPEORM_SYNCHRONIZE",
+        "TYPEORM_ENTITIES": "process.env.TYPEORM_ENTITIES",
+        "TYPEORM_MIGRATIONS": "process.env.TYPEORM_MIGRATIONS",
+        "TYPEORM_MIGRATIONS_DIR": "process.env.TYPEORM_MIGRATIONS_DIR",
+        "TYPEORM_ENTITIES_DIR": "process.env.TYPEORM_ENTITIES_DIR",
+        "JWT_SECRET": "process.env.JWT_SECRE"
+      }
+    }
+  }
+}

@@ -1,0 +1,8 @@
+export enum CashbackStatusEnum {
+  BLOCKED = 'BLOCKED',
+  AVAILABLE = 'AVAILABLE', 
+  LIQUIDATED = 'LIQUIDATED', 
+  EXPIRED = 'EXPIRED',
+  CANCELED = 'CANCELED'
+}
+  

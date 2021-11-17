@@ -1,0 +1,9 @@
+export enum SolicitationStatusEnum {
+  CREATED = 'CREATED',
+  PENDING = 'PENDING',
+  APPROVED = 'APPROVED',
+  DENIED = 'DENIED',
+  COMPLETED = 'COMPLETED',
+  LOST = 'LOST',
+  LIQUIDATED = 'LIQUIDATED'
+}
