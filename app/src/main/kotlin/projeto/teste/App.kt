@@ -13,21 +13,22 @@ import it.skrape.selects.html5.span
 import it.skrape.selects.text
 
 fun main() {
-    val links: List<String> = skrape(HttpFetcher) {
+    val meaning: List<String> = skrape(HttpFetcher) {
         request {
-            url = "https://www.dicio.com.br/advir/"
+            url = "https://www.dicio.com.br/tristeza/"
         }
-        extract {
-            htmlDocument {
+        response(fun Result.(): List<String> {
+            val parsedHtml = htmlDocument {
                 p(".significado.textonovo>span:not(.cl):not(.etim):not(.cl-block)") {
                     findAll {
                         eachText
                     }
                 }
             }
-        }
+            return parsedHtml
+        })
     }
-    println(links)
+    println(meaning)
 }
 
-class Palavra(var name: String, var meaning: String) {}
+class Palavra(var name: String, var meaning: List<String>) { }
