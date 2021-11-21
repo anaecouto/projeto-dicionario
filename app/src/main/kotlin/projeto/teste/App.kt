@@ -5,16 +5,11 @@ package projeto.teste
 
 import it.skrape.core.htmlDocument
 import it.skrape.fetcher.*
-import it.skrape.selects.eachHref
 import it.skrape.selects.eachText
-import it.skrape.selects.html5.a
 import it.skrape.selects.html5.p
-import it.skrape.selects.html5.span
-import it.skrape.selects.text
 
-fun main() {
 
-    val name = "amor"
+fun searchWordMeaning(name: String): Palavra {
 
     val meaning = skrape(HttpFetcher) {
 
@@ -30,14 +25,16 @@ fun main() {
                     }
                 }
             }
-
             return parsedHtml
         })
     }
-
     val palavra = Palavra(name, meaning)
 
-    println(palavra)
+    return palavra
+}
+
+fun main() {
+    println(searchWordMeaning("amor"))
 }
 
 data class Palavra(val word: String, val meaning: List<String>)
