@@ -5,23 +5,21 @@ package projeto.teste
 
 import it.skrape.core.htmlDocument
 import it.skrape.fetcher.*
-import it.skrape.selects.eachText
-import it.skrape.selects.html5.p
-
+import it.skrape.selects.html5.div
 
 fun searchWordMeaning(name: String): Palavra {
 
     val meaning = skrape(HttpFetcher) {
 
         request {
-            url = "https://www.dicio.com.br/$name/"
+            url = "https://www.dicionariodenomesproprios.com.br/$name/"
         }
 
-        response(fun Result.(): List<String> {
+        response(fun Result.(): String {
             val parsedHtml = htmlDocument {
-                p(".significado.textonovo>span:not(.cl):not(.etim):not(.cl-block)") {
-                    findAll {
-                        eachText
+                div("#significado>p") {
+                    findFirst {
+                        text
                     }
                 }
             }
@@ -34,7 +32,7 @@ fun searchWordMeaning(name: String): Palavra {
 }
 
 fun main() {
-    println(searchWordMeaning("amor"))
+    println(searchWordMeaning("Abraão"))
 }
 
-data class Palavra(val word: String, val meaning: List<String>)
+data class Palavra(val word: String, val meaning: String)
