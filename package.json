@@ -60,6 +60,7 @@
     "nest-keycloak-connect": "^1.7.6",
     "nestjs-redoc": "^2.2.2",
     "nestjs-s3": "^1.0.1",
+    "nestjs-twilio": "^2.1.0",
     "nestjs-typeorm-paginate": "^2.5.1",
     "nestjs-yup": "^1.0.13",
     "nodemailer": "^6.6.2",
@@ -72,6 +73,7 @@
     "rxjs": "^7.3.0",
     "swagger-ui-express": "^4.1.4",
     "ts-node": "^9.1.1",
+    "twilio": "^3.71.2",
     "typeorm": "^0.2.31",
     "uuid": "^8.3.2",
     "yup": "^0.32.9"

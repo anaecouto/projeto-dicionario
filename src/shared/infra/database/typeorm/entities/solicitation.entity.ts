@@ -33,9 +33,6 @@ export class SolicitationEntity extends BaseEntity {
   status: SolicitationStatusEnum;
   
   @Column()
-  contract: IContract;
-  
-  @Column()
   origin: SolicitationOriginEnum;
   
   @Column()

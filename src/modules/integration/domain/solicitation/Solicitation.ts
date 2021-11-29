@@ -13,7 +13,6 @@ import { SolicitationId } from './SolicitationId';
 export interface SolicitationProps {
   person?: Person;
   status?: SolicitationStatusEnum;
-  contract?: IContract;
   origin?: SolicitationOriginEnum;
   type?: SolicitationTypeEnum;
   serviceKey: string;
@@ -43,10 +42,6 @@ export class Solicitation extends AggregateRoot<SolicitationProps> {
   public setStatus(solicitaionStatusEnum: SolicitationStatusEnum) {
     this.props.status = solicitaionStatusEnum;
     this.addDomainEvent(new SendMailAfterSolicitationEvent(this));
-  }
-
-  get contract(): IContract | undefined {
-    return this.props.contract;
   }
 
   get origin(): SolicitationOriginEnum | undefined {

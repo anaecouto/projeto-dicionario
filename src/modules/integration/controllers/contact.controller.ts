@@ -3,9 +3,6 @@ import { ApiBody, ApiResponse, ApiTags } from "@nestjs/swagger";
 import { Response } from "express";
 import { Public } from "nest-keycloak-connect";
 import { BaseController } from "src/shared/core/BaseController";
-import { BaseEntityController } from "src/shared/core/BaseEntityController";
-import { ContactEntity } from "src/shared/infra/database/typeorm/entities/contact.entity";
-import { Repository } from "typeorm";
 import { CreateNewContactUseCase } from "../useCases/contact/createNewContactUseCase";
 import { ContactValidation } from "./validations/contact.validation";
 

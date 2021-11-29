@@ -1,12 +1,7 @@
 import { Inject, Injectable } from '@nestjs/common';
 import { IBaseProvider } from '../baseProvider.interface';
 import { ISolicitationProvider } from '../solicitation.provider';
-import { BizCapitalProvider } from './bizCapital.provider';
-import { EasyCreditoProvider } from './easyCredito.provider';
-import { InfoSimplesProvider } from './infoSimples.provider';
-import { MultiplikeProvider } from './multiplike.provider';
-import { NexoosProvider } from './nexoos.provider';
-import { VamosParcelarProvider } from './vamosParcelar.provider';
+
 
 /**
  * @description Sempre que for criado um novo provider de veiculo (DetranUF, por exemplo),
@@ -15,21 +10,7 @@ import { VamosParcelarProvider } from './vamosParcelar.provider';
  */
 @Injectable()
 export class BaseProvider implements IBaseProvider {
-  constructor(
-    @Inject(BizCapitalProvider)
-    private bizCapital: ISolicitationProvider,
-    @Inject(EasyCreditoProvider)
-    private easyCredito: ISolicitationProvider,
-    @Inject(VamosParcelarProvider)
-    private vamosParcelar: ISolicitationProvider,
-    @Inject(NexoosProvider)
-    private nexoos: ISolicitationProvider,
-    @Inject(InfoSimplesProvider)
-    private infoSimples: ISolicitationProvider,
-    @Inject(MultiplikeProvider)
-    private multiplike: ISolicitationProvider,
-    
-  ) {}
+  constructor() {}
 
   chooseProvider(
     companyKey: string,

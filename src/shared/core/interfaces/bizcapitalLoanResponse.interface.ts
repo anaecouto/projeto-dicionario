@@ -1,3 +1,0 @@
-interface BizCapitalLoanResponse {
-    loanApplicationId : string
-  }
