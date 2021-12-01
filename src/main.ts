@@ -16,50 +16,17 @@ async function bootstrap() {
       whitelist: true, // isso faz com que apenas o que estiver no validation pipe chegue na requisição
     })
   );
-  app.useStaticAssets(join(__dirname, "..", "public"));
-  app.setBaseViewsDir(join(__dirname, "..", "src", "shared", "views"));
-  app.setViewEngine("hbs");
 
-  console.log(
-    "CAMINHO VIEWS: ",
-    join(__dirname, "..", "src", "shared", "views")
-  );
-  app.setViewEngine("ejs");
-  const config = new DocumentBuilder()
-    .setTitle("LBS Digital API")
-    .setDescription("LBS Digital API documentation.")
-    .setVersion("1.0.0")
-    .addTag("LBSDIgital-API")
-    .build();
-
-  const document = SwaggerModule.createDocument(app, config);
-
-  const redocOptions: RedocOptions = {
-    title: 'BanDigital API',
-    logo: {
-      url: 'https://bandigital-public-bucket.s3.amazonaws.com/logo-bandigital.png',
-      backgroundColor: '#003f98',
-      altText: 'Logo BanDigital '
-    },
-    sortPropsAlphabetically: true,
-    hideDownloadButton: false,
-    hideHostname: false,
-    noAutoAuth: false
-  };
-
-  await RedocModule.setup('/api/docs', app, document, redocOptions);
-  // SwaggerModule.setup("api/docs", app, document);
-
-
-  app.connectMicroservice({
-    transport: Transport.RMQ,
-    options: {
-      urls: ['amqp://user:EZ7DBqXDfPts@18.234.188.5:5672/lbsdigital'],
-      queue: 'crawler',
-    },
-  });
+  const microservice = app.connectMicroservice( 
+    {
+      transport: Transport.RMQ,
+      options: {
+        urls: ['amqp://user:EZ7DBqXDfPts@18.234.188.5:5672/lbsdigital'],
+        queue: 'crawler',
+      },
+    });
 
   await app.startAllMicroservices();
-  await app.listen(process.env.PORT || 9000);
+  await app.listen(process.env.PORT || 3000);
 }
 bootstrap();

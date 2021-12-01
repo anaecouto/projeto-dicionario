@@ -1,13 +1,16 @@
-import { Body, Controller, Post } from "@nestjs/common";
-import { Response } from "express";
-import { BaseController } from "src/shared/core/BaseController";
-import { ClientProxy, Transport, ClientProxyFactory } from '@nestjs/microservices';
+import { Body, Controller, Post } from '@nestjs/common';
+import {
+  ClientProxy,
+  ClientProxyFactory,
+  EventPattern,
+  Payload,
+  Transport,
+} from '@nestjs/microservices';
 
-@Controller("rabbit")
-export class RabbitMQController extends BaseController {
+@Controller('rabbit')
+export class RabbitMQController {
   private clientAdminBackend: ClientProxy;
   constructor() {
-    super();
     this.clientAdminBackend = ClientProxyFactory.create({
       transport: Transport.RMQ,
       options: {
@@ -21,5 +24,11 @@ export class RabbitMQController extends BaseController {
   async pushLead(@Body() dto: any) {
     console.log('------>CHEGOU REQUEST NO CRAWLER: ');
     return await this.clientAdminBackend.emit('criar-lead', dto);
+  }
+
+  @EventPattern('criar-lead')
+  async subscribeLead(@Payload() payload: any) {
+    console.log('------>CRAWLER PEGOU DA FILA: ');
+    console.log(JSON.stringify(payload));
   }
 }
