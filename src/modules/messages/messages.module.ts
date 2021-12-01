@@ -11,6 +11,7 @@ import { TwilioModule } from 'nestjs-twilio';
 import { SendWhatsappMessagesUseCase } from "./useCases/sendWhatsappMessgeUseCase";
 import { TwilioProvider } from "./providers/implementation/twilio.provider";
 import { WhatsappController } from "./controllers/whatsapp.controller";
+import { RabbitMQController } from "./controllers/rabbitmq.controlle";
 
 @Module({
   imports: [SharedModule,
@@ -18,7 +19,7 @@ import { WhatsappController } from "./controllers/whatsapp.controller";
       accountSid: process.env.TWILIO_ACCOUNT_SID,
       authToken: process.env.TWILIO_AUTH_TOKEN,
     }),],
-  controllers: [MessagesController, WhatsappController],
+  controllers: [MessagesController, WhatsappController, RabbitMQController],
   providers: [
     CreateNewMessagesUseCase,
     SenderRepoTypeOrm,

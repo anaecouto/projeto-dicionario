@@ -7,6 +7,7 @@ import { DocumentBuilder, SwaggerModule } from "@nestjs/swagger";
 import { join } from "path";
 import { AppModule } from "./app.module";
 import { RedocModule, RedocOptions } from "nestjs-redoc";
+import { Transport } from "@nestjs/microservices";
 
 async function bootstrap() {
   const app = await NestFactory.create<NestExpressApplication>(AppModule);
@@ -25,10 +26,10 @@ async function bootstrap() {
   );
   app.setViewEngine("ejs");
   const config = new DocumentBuilder()
-    .setTitle("Ban Digital API")
-    .setDescription("Ban Digital API documentation.")
+    .setTitle("LBS Digital API")
+    .setDescription("LBS Digital API documentation.")
     .setVersion("1.0.0")
-    .addTag("BanDigital-API")
+    .addTag("LBSDIgital-API")
     .build();
 
   const document = SwaggerModule.createDocument(app, config);
@@ -49,6 +50,16 @@ async function bootstrap() {
   await RedocModule.setup('/api/docs', app, document, redocOptions);
   // SwaggerModule.setup("api/docs", app, document);
 
-  await app.listen(process.env.PORT || 3000);
+
+  app.connectMicroservice({
+    transport: Transport.RMQ,
+    options: {
+      urls: ['amqp://user:EZ7DBqXDfPts@18.234.188.5:5672/lbsdigital'],
+      queue: 'crawler',
+    },
+  });
+
+  await app.startAllMicroservices();
+  await app.listen(process.env.PORT || 9000);
 }
 bootstrap();
