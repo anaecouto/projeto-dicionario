@@ -28,10 +28,4 @@ export class BaseUseCase<T> {
   async count(relations: FindManyOptions<T>): Promise<any> {
     return await this.baseRepo.count(relations);
   }
-
-  async findByDate(initDate: Date, finalDate: Date): Promise<T[]> {
-    if(!initDate || !finalDate)
-      throw new AppError('dateIni and dateEnd  must be a string.');
-    return await this.baseRepo.findByDate(initDate, finalDate);
-  }
 }

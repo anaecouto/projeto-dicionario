@@ -12,6 +12,7 @@ import { SendWhatsappMessagesUseCase } from "./useCases/sendWhatsappMessgeUseCas
 import { TwilioProvider } from "./providers/implementation/twilio.provider";
 import { WhatsappController } from "./controllers/whatsapp.controller";
 import { RabbitMQController } from "./controllers/rabbitmq.controlle";
+import PushContractOnQueue from "./subscriptions/pushContractOnQueue";
 
 @Module({
   imports: [SharedModule,
@@ -27,7 +28,8 @@ import { RabbitMQController } from "./controllers/rabbitmq.controlle";
     AWSMailProvider,
     SendMailUseCase,
     SendWhatsappMessagesUseCase,
-    TwilioProvider
+    TwilioProvider,
+    PushContractOnQueue
   ],
 })
 export class MessagesModule {}

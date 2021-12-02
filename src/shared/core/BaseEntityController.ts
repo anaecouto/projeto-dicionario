@@ -145,25 +145,4 @@ export abstract class BaseEntityController<T> extends BaseController {
     } 
   }
   
-  @Get("findByDate")
-  @Public()
-  async findByDate(
-    @Res() res: Response,
-    @Query("dateIni", new DefaultValuePipe(null)) dateIni: Date,
-    @Query("dateEnd", new DefaultValuePipe(null)) dateEnd: Date
-  ) {
-    try {
-      this.baseUseCase
-      .findByDate(dateIni, dateEnd)
-      .then((result) => {
-        this.ok(res, result || {});
-      })
-      .catch((err) => {
-        this.handleAppError(res, err);
-      });
-    } catch(error) {
-      console.log(error);
-      this.handleAppError(res, error);
-    } 
-  }
 }

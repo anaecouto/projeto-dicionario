@@ -4,6 +4,7 @@ import { ConfigModule } from '@nestjs/config';
 import { SenderSubscriber } from './hooks/senderEntityHook';
 import { SolicitationSubscriber } from './hooks/solicitationEntityHook';
 import { ContactSubscriber } from './hooks/contactEntityHook';
+import { ContractSubscriber } from './hooks/contractEntityHook';
 
 @Module({
   imports: [
@@ -22,7 +23,7 @@ import { ContactSubscriber } from './hooks/contactEntityHook';
       },
     }),
   ],
-  providers: [SenderSubscriber, SolicitationSubscriber, ContactSubscriber],
+  providers: [SenderSubscriber, SolicitationSubscriber, ContactSubscriber, ContractSubscriber],
   exports: [TypeOrm],
 })
 export class TypeOrmModule {}

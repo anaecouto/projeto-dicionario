@@ -1,23 +1,21 @@
 import { Module } from "@nestjs/common";
 import { MessagesModule } from "./modules/messages/messages.module";
-import { NotificationsModule } from "./modules/notifications/notifications.module";
 import { EventEmitterModule } from "@nestjs/event-emitter";
-import { IntegrationModule } from "./modules/integration/integration.module";
+import { IntegrationModule } from "./modules/solicitation/integration.module";
 import { AuthModule } from "./modules/auth/auth.module";
-import { FilesModule } from "./modules/files/file.module";
 import { ConfigModule } from "@nestjs/config";
 import { AuthGuard, KeycloakConnectModule, ResourceGuard, RoleGuard, TokenValidation } from "nest-keycloak-connect";
 import { APP_GUARD } from "@nestjs/core";
+import { CorrespondenceModule } from "./modules/correspondence/correspondence.module";
 
 @Module({
   imports: [
     ConfigModule.forRoot(),
     EventEmitterModule.forRoot(),
     MessagesModule,
-    NotificationsModule,
     IntegrationModule,
     AuthModule,
-    FilesModule,
+    CorrespondenceModule
     // KeycloakConnectModule.register({
     //   authServerUrl: 'https://keycloak.gocash.com.br/auth',
     //   realm: 'bandigital',

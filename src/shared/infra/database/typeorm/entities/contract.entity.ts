@@ -26,8 +26,8 @@ export class Option {
   alternatives: Alternative[];
 }
 
-@Entity("contacts")
-export class Contract extends BaseEntity {
+@Entity("contracts")
+export class ContractEntity extends BaseEntity {
   @Column()
   agency: string;
 

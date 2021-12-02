@@ -2,7 +2,6 @@ import { Type } from 'class-transformer';
 import { SolicitationOriginEnum } from 'src/shared/core/enums/solicitationOrigin.enum';
 import { SolicitationStatusEnum } from 'src/shared/core/enums/solicitationStatus.enum';
 import { SolicitationTypeEnum } from 'src/shared/core/enums/solicitationType.enum';
-import { IContract } from 'src/shared/core/interfaces/contract.interface';
 import { IPerson } from 'src/shared/core/interfaces/person.interface';
 import { Column, Entity } from 'typeorm';
 import { BaseEntity } from './_baseEntity';

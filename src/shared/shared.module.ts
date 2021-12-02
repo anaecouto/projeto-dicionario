@@ -11,9 +11,9 @@ import { WsTokensEntity } from "./infra/database/typeorm/entities/wsToken.entity
 import { ContactEntity } from "./infra/database/typeorm/entities/contact.entity";
 import { CompanyEntity } from "./infra/database/typeorm/entities/company.entity";
 import { UserEntity } from "./infra/database/typeorm/entities/user.entity";
-import S3StorageProvider from "./providers/storageProvider/implementations/S3StorageProvider";
 import { AccountEntity } from "./infra/database/typeorm/entities/account.entity";
 import { BaseRepository } from "./core/base.repository";
+import { ContractEntity } from "./infra/database/typeorm/entities/contract.entity";
 
 
 @Module({
@@ -30,9 +30,10 @@ import { BaseRepository } from "./core/base.repository";
       SolicitationEntity,
       UserEntity,
       WsTokensEntity,
+      ContractEntity
     ]),
   ],
-  providers: [DomainEvents, DomainsEventBootstrap, S3StorageProvider, BaseRepository],
+  providers: [DomainEvents, DomainsEventBootstrap, BaseRepository ],
   exports: [DomainEvents, TypeOrmModule, DataBaseModule],
 })
 export class SharedModule {}

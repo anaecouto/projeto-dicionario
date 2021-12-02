@@ -43,18 +43,6 @@ export class BaseRepository<T> {
     return this.repository.count(relations);
   }
 
-  async findByDate(initDate: Date, finalDate: Date): Promise<T[]> {
-    const result = await this.repository.find({
-      where: {
-        createdAt: {
-          $gte: initDate,
-          $lte: finalDate,
-        },
-      },
-    });
-    return result;
-  }
-
   private formatRelations(object: any): any {
     if (object) {
       if (typeof object === "object") {
