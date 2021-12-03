@@ -1,0 +1,10 @@
+export enum ContractStatusEnum {
+  CREATED = 'CREATED',
+  READY = 'READY', 
+  ERROR = 'ERROR', 
+  PENDENT = 'PENDENT',
+  CONTACTED = 'CONTACTED',
+  REFUSED = 'REFUSED',
+  ACCEPTED = 'ACCEPTED'
+}
+  
