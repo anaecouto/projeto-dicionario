@@ -4,7 +4,10 @@ import { FindManyOptions, FindOneOptions, UpdateResult } from "typeorm";
 import { Contract } from "../domain/contract/Contract";
 
 export interface IContractRepo {
-    save(Contract: Contract): Promise<Contract>;
+    save(contract: Contract): Promise<Contract>;
+
+    saveAll(contractList: Contract[]): Promise<Contract[]>;
+
     paginate(options: IPaginationOptions, relations: any): Promise<Pagination<ContractEntity>>
     findOne(
       relations: string | FindOneOptions<ContractEntity>

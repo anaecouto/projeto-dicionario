@@ -1,3 +1,6 @@
+import { UniqueEntityID } from "src/shared/domain/UniqueEntityID";
+import { ContractStatusEnum } from "../enums/contractStatusEnum";
+
 export class Alternative {
   fullPrice: string;
   times: string;
@@ -12,6 +15,7 @@ export interface Option {
 }
 
 export interface IContract {
+  _id?: UniqueEntityID;
   agency: string;
   account: string;
   document: string;
@@ -19,7 +23,7 @@ export interface IContract {
   state: string;
   sex?: string;
   birthDate?: Date;
-  status?: string;
+  status?: ContractStatusEnum;
   phones: string[];
   options?: Option[];
 }

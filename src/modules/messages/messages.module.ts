@@ -12,24 +12,42 @@ import { SendWhatsappMessagesUseCase } from "./useCases/sendWhatsappMessgeUseCas
 import { TwilioProvider } from "./providers/implementation/twilio.provider";
 import { WhatsappController } from "./controllers/whatsapp.controller";
 import { RabbitMQController } from "./controllers/rabbitmq.controlle";
-import PushContractOnQueue from "./subscriptions/pushContractOnQueue";
+import PushSingleContractOnQueue from "./subscriptions/pushSingleContractOnQueue";
+import PushMultipleContractOnQueue from "./subscriptions/pushMultipleContractsOnQueue";
+import { PushContractsOnQueueUseCase } from "./useCases/pushContractOnQueueUseCase";
+import { ClientsModule, Transport } from "@nestjs/microservices";
 
 @Module({
   imports: [SharedModule,
     TwilioModule.forRoot({
       accountSid: process.env.TWILIO_ACCOUNT_SID,
       authToken: process.env.TWILIO_AUTH_TOKEN,
-    }),],
+    }),
+    ClientsModule.register([
+      {
+        name: 'MASSAGE_SERVICE',
+        transport: Transport.RMQ,
+        options: {
+          urls: ['amqp://user:EZ7DBqXDfPts@18.234.188.5:5672/hello'],
+          queue: 'nest',
+          queueOptions: {
+            durable: true
+          },
+        },
+      },
+    ]),],
   controllers: [MessagesController, WhatsappController, RabbitMQController],
   providers: [
     CreateNewMessagesUseCase,
+    PushContractsOnQueueUseCase,
     SenderRepoTypeOrm,
     MessagesRepoTypeOrm,
     AWSMailProvider,
     SendMailUseCase,
     SendWhatsappMessagesUseCase,
     TwilioProvider,
-    PushContractOnQueue
+    PushSingleContractOnQueue,
+    PushMultipleContractOnQueue
   ],
 })
 export class MessagesModule {}

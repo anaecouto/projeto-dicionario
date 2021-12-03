@@ -1,6 +1,8 @@
+import { ContractStatusEnum } from 'src/shared/core/enums/contractStatusEnum';
 import { AggregateRoot } from 'src/shared/domain/AggregateRoot';
 import { UniqueEntityID } from 'src/shared/domain/UniqueEntityID';
-import { PushContractOnQueueEvent } from '../_domainEvents/PushContractOnQueueEvent';
+import { PushSingleContractOnQueueEvent } from '../_domainEvents/PushContractOnQueueEvent';
+
 import { ContractId } from './ContractId';
 import { Option } from './Option';
 
@@ -12,7 +14,7 @@ export interface ContractProps {
   state: string;
   sex?: string;
   birthDate?: Date;
-  status: string;
+  status: ContractStatusEnum;
   phones: string[];
   options?: Option[];
 }
@@ -51,11 +53,11 @@ export class Contract extends AggregateRoot<ContractProps> {
     return this.props.birthDate;
   }
 
-  set status(status: string) { 
+  get status(): ContractStatusEnum {
+    return this.props.status;
+  }
+  set status(status: ContractStatusEnum) { 
     this.props.status = status;
-    if (status === 'CREATED') {
-      this.addDomainEvent(new PushContractOnQueueEvent(this));
-    }
   }
 
   get phones(): string[]{ 
@@ -70,11 +72,11 @@ export class Contract extends AggregateRoot<ContractProps> {
     super(props, id);
   }
 
-  static create(props: ContractProps, id?: UniqueEntityID) {
+  static create(props: ContractProps, id?: UniqueEntityID, emitQueueEvent?: boolean) {
     const contract = new Contract(props, id);
     const isNew = !id;
-    if (isNew) {
-      contract.addDomainEvent(new PushContractOnQueueEvent(contract));
+    if (isNew && emitQueueEvent) {
+      contract.addDomainEvent(new PushSingleContractOnQueueEvent(contract));
     }
     return contract;
   }

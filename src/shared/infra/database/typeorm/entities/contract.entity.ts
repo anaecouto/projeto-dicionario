@@ -1,19 +1,20 @@
+import { ContractStatusEnum } from "src/shared/core/enums/contractStatusEnum";
 import { Column, Entity } from "typeorm";
 import { BaseEntity } from "./_baseEntity";
 
 export class Alternative {
   @Column()
   fullPrice: string;
-  
+
   @Column()
   times: string;
-  
+
   @Column()
   individual: string;
-  
+
   @Column()
   monthTax: string;
-  
+
   @Column()
   description: string;
 }
@@ -28,33 +29,33 @@ export class Option {
 
 @Entity("contracts")
 export class ContractEntity extends BaseEntity {
-  @Column()
+  @Column({ nullable: false })
   agency: string;
 
-  @Column()
+  @Column({ nullable: false })
   account: string;
 
-  @Column()
+  @Column({ unique: true })  
   document: string;
 
-  @Column()
+  @Column({ nullable: false })
   name: string;
 
-  @Column()
+  @Column({ nullable: true })
   state: string;
 
-  @Column()
+  @Column({ nullable: true })
   sex: string;
 
-  @Column()
+  @Column({ nullable: true })
   birthDate: Date;
 
-  @Column()
-  status: string;
+  @Column({ nullable: true })
+  status: ContractStatusEnum;
 
-  @Column()
+  @Column({ nullable: false })
   phones: string[];
 
-  @Column()
+  @Column({ nullable: true })
   options: Option[];
 }

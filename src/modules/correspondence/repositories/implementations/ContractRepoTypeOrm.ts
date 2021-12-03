@@ -25,4 +25,18 @@ export class ContractRepoTypeOrm extends BaseRepository<ContractEntity> implemen
     );
     return ContractMapper.toDomain(contractEntity);
   }
+
+
+  async saveAll(contractList: Contract[]): Promise<Contract[]> {
+    const contractEntityList = await Promise.all(
+      contractList.map(async contract => {
+        return this.contractRepoTypeOrm.create(ContractMapper.toPersistence(contract));
+      })
+    );
+    const savedList = await this.contractRepoTypeOrm.save(contractEntityList);
+
+    return await Promise.all(savedList.map(async entity => {
+      return ContractMapper.toDomain(entity);
+    }));
+  }
 }

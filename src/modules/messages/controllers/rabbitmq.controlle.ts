@@ -1,34 +1,39 @@
-import { Body, Controller, Post } from '@nestjs/common';
+import { Body, Controller, Inject, Injectable, Post } from "@nestjs/common";
 import {
-  ClientProxy,
-  ClientProxyFactory,
-  EventPattern,
-  Payload,
-  Transport,
-} from '@nestjs/microservices';
+  ClientProxy
+} from "@nestjs/microservices";
 
-@Controller('rabbit')
+@Controller("rabbit")
 export class RabbitMQController {
-  private clientAdminBackend: ClientProxy;
-  constructor() {
-    this.clientAdminBackend = ClientProxyFactory.create({
-      transport: Transport.RMQ,
-      options: {
-        urls: ['amqp://user:EZ7DBqXDfPts@18.234.188.5:5672/lbsdigital'],
-        queue: 'crawler',
-      },
-    });
+  
+  constructor(@Inject('MASSAGE_SERVICE') private readonly client: ClientProxy) {
   }
 
-  @Post('crawler')
+  @Post("crawler")
   async pushLead(@Body() dto: any) {
-    console.log('------>CHEGOU REQUEST NO CRAWLER: ');
-    return await this.clientAdminBackend.emit('criar-lead', dto);
+    console.log("------>CHEGOU REQUEST NO CRAWLER: ");
+    try {
+      this.client.emit('hello', 'hello world!');
+    } catch (err) {
+      console.log(err);
+    }
+    return {message: 'show'};
+    
+    // const message = ":cat:";
+    // const record = new RmqRecordBuilder(dto)
+    //   .setOptions({
+    //     headers: {
+    //       ["x-version"]: "1.0.0",
+    //     },
+    //     priority: 3,
+    //   })
+    //   .build();
+
+    // this.client.send("replace-emoji", record).subscribe((result) => {
+    //   console.log(result);
+    //   return { messge: "show" };
+    // });
+    // return await this.clientAdminBackend.emit('criar-lead', dto);
   }
 
-  @EventPattern('criar-lead')
-  async subscribeLead(@Payload() payload: any) {
-    console.log('------>CRAWLER PEGOU DA FILA: ');
-    console.log(JSON.stringify(payload));
-  }
 }
