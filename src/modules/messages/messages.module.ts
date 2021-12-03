@@ -28,10 +28,10 @@ import { ClientsModule, Transport } from "@nestjs/microservices";
         name: 'MASSAGE_SERVICE',
         transport: Transport.RMQ,
         options: {
-          urls: ['amqp://user:EZ7DBqXDfPts@18.234.188.5:5672/hello'],
-          queue: 'nest',
+          urls: ['amqp://admin:admin@52.91.169.76:5672/lbs'],
+          queue: 'lbs',
           queueOptions: {
-            durable: true
+            durable: false
           },
         },
       },
