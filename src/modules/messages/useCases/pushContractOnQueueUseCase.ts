@@ -1,4 +1,4 @@
-import { Injectable } from "@nestjs/common";
+import { Inject, Injectable } from "@nestjs/common";
 import {
   ClientProxy,
   ClientProxyFactory,
@@ -12,24 +12,14 @@ import { IUseCase } from "src/shared/core/IUseCase";
 export class PushContractsOnQueueUseCase
   implements IUseCase<any, any>
 {
-  private clientAdminBackend: ClientProxy;
-  constructor() {
-    // this.clientAdminBackend = ClientProxyFactory.create({
-    //   transport: Transport.RMQ,
-    //   options: {
-    //     urls: ["amqp://user:EZ7DBqXDfPts@18.234.188.5:5672"],
-    //     queue: "crawler",
-    //     queueOptions: {
-    //       durable: false
-    //     },
-    //   },
-    // });
+  constructor(@Inject('MASSAGE_SERVICE') private readonly client: ClientProxy) {
   }
 
   async execute(contractList: IContract[]): Promise<IContract[]> {
     await Promise.all(
       contractList.map(async contract => {
-        // return await this.clientAdminBackend.emit('criar-lead', JSON.stringify(contract));
+        return await this.client.emit('lbs', JSON.stringify(contract));
+        
       })
     )
     return contractList;

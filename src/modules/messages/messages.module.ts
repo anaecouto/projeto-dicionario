@@ -29,9 +29,10 @@ import { ClientsModule, Transport } from "@nestjs/microservices";
         transport: Transport.RMQ,
         options: {
           urls: ['amqp://admin:admin@52.91.169.76:5672/lbs'],
-          queue: 'lbs',
+          queue: 'bijay2',
+          noAck: false,
           queueOptions: {
-            durable: false
+            durable: true
           },
         },
       },
