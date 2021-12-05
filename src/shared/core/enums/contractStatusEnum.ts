@@ -3,8 +3,8 @@ export enum ContractStatusEnum {
   READY = 'READY', 
   ERROR = 'ERROR', 
   PENDENT = 'PENDENT',
+  NOTDISTURB = 'NOTDISTURB',
   CONTACTED = 'CONTACTED',
   REFUSED = 'REFUSED',
   ACCEPTED = 'ACCEPTED'
 }
-  

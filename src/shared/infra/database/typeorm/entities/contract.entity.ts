@@ -58,4 +58,7 @@ export class ContractEntity extends BaseEntity {
 
   @Column({ nullable: true })
   options: Option[];
+
+  @Column({ nullable: false })
+  metadata: any;
 }

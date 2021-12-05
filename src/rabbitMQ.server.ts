@@ -35,7 +35,7 @@ export class RabbitMQServer {
 //     return this.channel.publish(exchage, routingKey, Buffer.from(message))
 //   }
 
-  async cosume(queue: string, callback: (message: Message) => void) {
+  async consume(queue: string, callback: (message: Message) => void) {
     return this.channel.consume(queue, (message) => {
       if (message) {
         callback(message);

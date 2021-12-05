@@ -34,15 +34,15 @@ export class CreateMultipleContractUseCase
   }
 
   private async saveAllContracts(contractList: Contract[]): Promise<IContract[]> {
-    // let list = await Promise.all(contractList.map(async (contract) => {
-    //   try {
-    //     return await this.contractRepo.save(contract);
-    //   } catch(err) {
-    //     console.error('Erro ao salvar contrato: ', err);
-    //   }
-    // }));
-    // const result = list.filter(a => a) as Contract[];
-    return contractList.map(contract => ContractMapper.toInterface(contract));
+    let list = await Promise.all(contractList.map(async (contract) => {
+      try {
+        return await this.contractRepo.save(contract);
+      } catch(err) {
+        console.error('Erro ao salvar contrato: ', err);
+      }
+    }));
+    const result = list.filter(a => a) as Contract[];
+    return result.map(contract => ContractMapper.toInterface(contract));
   }
 
   private async createContractDomainList(
@@ -62,6 +62,7 @@ export class CreateMultipleContractUseCase
   }
 
   private emitQueueEvent(contractList: IContract[]) {
+    if(contractList && contractList.length > 0)
     this.eventEmitter.emit("push.multiple.contracts.on.queue", contractList);
   }
 }

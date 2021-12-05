@@ -1,4 +1,4 @@
-import { Module } from "@nestjs/common";
+import { forwardRef, Module } from "@nestjs/common";
 import { SharedModule } from "src/shared/shared.module";
 import { MessagesController } from "./controllers/messages.controller";
 
@@ -16,9 +16,12 @@ import PushSingleContractOnQueue from "./subscriptions/pushSingleContractOnQueue
 import PushMultipleContractOnQueue from "./subscriptions/pushMultipleContractsOnQueue";
 import { PushContractsOnQueueUseCase } from "./useCases/pushContractOnQueueUseCase";
 import { ClientsModule, Transport } from "@nestjs/microservices";
+import { UpdateContractUseCase } from "./useCases/updateContractUseCase";
+import { ContractRepoTypeOrm } from "../correspondence/repositories/implementations/ContractRepoTypeOrm";
 
 @Module({
   imports: [SharedModule,
+    forwardRef(() => MessagesModule),
     TwilioModule.forRoot({
       accountSid: process.env.TWILIO_ACCOUNT_SID,
       authToken: process.env.TWILIO_AUTH_TOKEN,
@@ -41,6 +44,7 @@ import { ClientsModule, Transport } from "@nestjs/microservices";
   providers: [
     CreateNewMessagesUseCase,
     PushContractsOnQueueUseCase,
+    UpdateContractUseCase,
     SenderRepoTypeOrm,
     MessagesRepoTypeOrm,
     AWSMailProvider,
@@ -48,7 +52,8 @@ import { ClientsModule, Transport } from "@nestjs/microservices";
     SendWhatsappMessagesUseCase,
     TwilioProvider,
     PushSingleContractOnQueue,
-    PushMultipleContractOnQueue
+    PushMultipleContractOnQueue,
+    ContractRepoTypeOrm
   ],
 })
 export class MessagesModule {}
