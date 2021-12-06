@@ -7,12 +7,12 @@ import { ContractId } from './ContractId';
 import { Option } from './Option';
 
 export interface ContractProps {
+  name: string;
+  sex?: string;
+  state: string;
   agency: string;
   account: string;
   document: string;
-  name: string;
-  state: string;
-  sex?: string;
   birthDate?: Date;
   status: ContractStatusEnum;
   phones: string[];
