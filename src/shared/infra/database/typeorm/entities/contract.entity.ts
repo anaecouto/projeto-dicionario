@@ -27,6 +27,29 @@ export class Option {
   alternatives: Alternative[];
 }
 
+export class ContractDetails {
+  @Column()
+  installmentAmount: number;
+
+  @Column()
+  installmentValue: number;
+
+  @Column()
+  totalAmount: number; 
+
+  @Column()
+  originAmount: number; 
+
+  @Column()
+  monthTax: string;
+
+  @Column()
+  totalComission: number; 
+
+  @Column()
+  monthlyComission: number; 
+}
+
 @Entity("contracts")
 export class ContractEntity extends BaseEntity {
   @Column({ nullable: false })
@@ -55,6 +78,9 @@ export class ContractEntity extends BaseEntity {
 
   @Column({ nullable: false })
   phones: string[];
+
+  @Column({ nullable: true })
+  contactedPhones: string[];
 
   @Column({ nullable: true })
   options: Option[];

@@ -18,6 +18,7 @@ export class ContractMapper {
       birthDate: dbContract.birthDate,
       status: dbContract.status,
       phones: dbContract.phones,
+      contactedPhones: dbContract.contactedPhones,
       options: dbContract.options,
     } as ContractProps;
 
@@ -35,7 +36,8 @@ export class ContractMapper {
       sex: contract.sex, 
       birthDate: contract.birthDate, 
       status: contract.status, 
-      phones: contract.phones, 
+      phones: contract.phones,
+      contactedPhones: contract.contactedPhones, 
       options: contract.options, 
     };
   }
@@ -52,6 +54,7 @@ export class ContractMapper {
       birthDate: contract.birthDate, 
       status: contract.status, 
       phones: contract.phones, 
+      contactedPhones: contract.contactedPhones,
       options: contract.options, 
     };
   }

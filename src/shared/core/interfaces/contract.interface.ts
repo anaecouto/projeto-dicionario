@@ -25,5 +25,6 @@ export interface IContract {
   birthDate?: Date;
   status?: ContractStatusEnum;
   phones: string[];
+  contactedPhones?: string[];
   options?: Option[];
 }

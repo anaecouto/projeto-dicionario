@@ -16,7 +16,7 @@ export class WhatsappController extends BaseController {
     @Res() res: Response,
     @Body() dto: any,
   ) {
-    console.log('CHEGOU AQUI!!!!!');
+    console.log('SEND WHATSAPP');
     this.sendWhatsappMessagesUseCase
       .execute(dto)
       .then((result) => {

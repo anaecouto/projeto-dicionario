@@ -10,6 +10,7 @@ export class ListeningResponsesFromQueueUseCase {
   static async execute(): Promise<void> {
     await ListeningResponsesFromQueueUseCase.server.start();
     await this.server.consume("crawler-response", (message) => {
+      console.log('RESPOSTA FILA: ');
       const convertedMessage = message.content.toString();
       if (convertedMessage) {
         const parsed = Buffer.from(JSON.parse(convertedMessage).data.data.data).toString();
@@ -18,7 +19,6 @@ export class ListeningResponsesFromQueueUseCase {
           JSON.parse(parsed)
         );
       }
-      console.log("BOOOOOOOTSTRAP: ", convertedMessage);
     });
   }
 }

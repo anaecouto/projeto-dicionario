@@ -7,6 +7,7 @@ import { ContractRepoTypeOrm } from "./repositories/implementations/ContractRepo
 import { CreateMultipleContractUseCase } from "./useCases/createMultipleContractUseCase";
 import { CreateNewContractUseCase } from "./useCases/createNewContractUseCase";
 import { UpdateContractByCrawlerResponseUseCase } from "./useCases/updateContractByCrawlerResponseUseCase";
+import { UpdateContractWhatsappUseCase } from "./useCases/updateContractWhatsappContactUseCase";
 
 @Module({
   imports: [SharedModule],
@@ -15,8 +16,9 @@ import { UpdateContractByCrawlerResponseUseCase } from "./useCases/updateContrac
     CreateNewContractUseCase,
     CreateMultipleContractUseCase,
     UpdateContractByCrawlerResponseUseCase,
+    UpdateContractWhatsappUseCase,
     ContractRepoTypeOrm,
-    PushSingleContractOnQueueEvent,
+    PushSingleContractOnQueueEvent
   ],
 })
 export class CorrespondenceModule {}

@@ -18,6 +18,9 @@ import { PushContractsOnQueueUseCase } from "./useCases/pushContractOnQueueUseCa
 import { ClientsModule, Transport } from "@nestjs/microservices";
 import { UpdateContractUseCase } from "./useCases/updateContractUseCase";
 import { ContractRepoTypeOrm } from "../correspondence/repositories/implementations/ContractRepoTypeOrm";
+import { ZapiProvider } from "./providers/implementation/zapi.provider";
+import UpdateContractWhatsappContactSubscriber from "../correspondence/subscriptions/updateContractWhatsappContactSubscriber";
+import { UpdateContractWhatsappUseCase } from "../correspondence/useCases/updateContractWhatsappContactUseCase";
 
 @Module({
   imports: [SharedModule,
@@ -53,7 +56,10 @@ import { ContractRepoTypeOrm } from "../correspondence/repositories/implementati
     TwilioProvider,
     PushSingleContractOnQueue,
     PushMultipleContractOnQueue,
-    ContractRepoTypeOrm
+    ContractRepoTypeOrm,
+    ZapiProvider,
+    UpdateContractWhatsappContactSubscriber,
+    UpdateContractWhatsappUseCase
   ],
 })
 export class MessagesModule {}

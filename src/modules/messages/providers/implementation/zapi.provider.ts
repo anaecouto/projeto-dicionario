@@ -1,12 +1,11 @@
 import { Injectable } from "@nestjs/common";
 import axios, { AxiosRequestConfig } from "axios";
-import { stringify } from "querystring";
 
 @Injectable()
 export class ZapiProvider {
 
-  private readonly instanceId = '3A3448D0F42950271E1822AA050CAAA2';
-  private readonly token = 'CA3E5C88CA4B9700923FBD96';
+  private readonly instanceId = '3A38E64EFDD6B0F4031886AA720AC604';
+  private readonly token = '1C7CF2E95FAE1B843888C3C8';
   private baseurl = '';
   constructor() {
     this.baseurl = `https://api.z-api.io/instances/${this.instanceId}/token/${this.token}/send-messages`;
@@ -14,10 +13,7 @@ export class ZapiProvider {
 
 
   async sendWhatsapp(phone: string, message: string) {
-    const body = {
-      phone,
-      message
-    };
+    const body = this.buildMessageBody(phone, message);
 
     const requestConfig = {
       headers: {
@@ -37,5 +33,17 @@ export class ZapiProvider {
       .catch((res) => {
         console.log(res);
       });
+  }
+
+  private buildMessageBody(phone: string, message: string): any {
+    return process.env.ENVIRONMENT === 'PROD'?
+      {
+        phone,
+        message
+      }
+      : {
+        phone: '5531986071643',
+        message
+      }
   }
 }

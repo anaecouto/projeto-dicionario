@@ -39,4 +39,8 @@ export class CreateNewContractValidation implements IContract {
   @ApiProperty()
   @IsArray()
   phones: string[];
+
+  @ApiProperty()
+  @IsOptional()
+  contactedPhones: string[];
 }
