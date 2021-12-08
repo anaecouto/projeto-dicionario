@@ -1,4 +1,5 @@
 import { UniqueEntityID } from "src/shared/domain/UniqueEntityID";
+import { IContractDetails } from "src/shared/infra/database/typeorm/entities/contract.entity";
 import { ContractStatusEnum } from "../enums/contractStatusEnum";
 
 export class Alternative {
@@ -27,4 +28,5 @@ export interface IContract {
   phones: string[];
   contactedPhones?: string[];
   options?: Option[];
+  details?: IContractDetails;
 }

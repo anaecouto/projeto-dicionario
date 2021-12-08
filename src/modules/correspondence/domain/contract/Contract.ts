@@ -1,6 +1,7 @@
 import { ContractStatusEnum } from "src/shared/core/enums/contractStatusEnum";
 import { AggregateRoot } from "src/shared/domain/AggregateRoot";
 import { UniqueEntityID } from "src/shared/domain/UniqueEntityID";
+import { IContractDetails } from "src/shared/infra/database/typeorm/entities/contract.entity";
 import { PushSingleContractOnQueueEvent } from "../_domainEvents/PushContractOnQueueEvent";
 
 import { ContractId } from "./ContractId";
@@ -18,6 +19,7 @@ export interface ContractProps {
   phones: string[];
   contactedPhones?: string[];
   options?: Option[];
+  details?: IContractDetails;
 }
 
 export class Contract extends AggregateRoot<ContractProps> {
@@ -76,6 +78,9 @@ export class Contract extends AggregateRoot<ContractProps> {
     return this.props.options;
   }
 
+  get details(): IContractDetails | undefined {
+    return this.props.details;
+  }
   private constructor(props: ContractProps, id?: UniqueEntityID) {
     super(props, id);
   }

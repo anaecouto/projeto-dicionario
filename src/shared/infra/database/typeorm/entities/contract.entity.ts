@@ -27,27 +27,15 @@ export class Option {
   alternatives: Alternative[];
 }
 
-export class ContractDetails {
-  @Column()
-  installmentAmount: number;
-
-  @Column()
+export interface IContractDetails {
+  installmentCount: number;
   installmentValue: number;
-
-  @Column()
   totalAmount: number; 
-
-  @Column()
   originAmount: number; 
-
-  @Column()
   monthTax: string;
-
-  @Column()
   totalComission: number; 
-
-  @Column()
   monthlyComission: number; 
+  annotation: string;
 }
 
 @Entity("contracts")
@@ -87,4 +75,7 @@ export class ContractEntity extends BaseEntity {
 
   @Column({ nullable: false })
   metadata: any;
+
+  @Column({nullable: true})
+  details: IContractDetails
 }

@@ -20,6 +20,7 @@ export class ContractMapper {
       phones: dbContract.phones,
       contactedPhones: dbContract.contactedPhones,
       options: dbContract.options,
+      details: dbContract.details,
     } as ContractProps;
 
     return Contract.create(contractProps, UniqueEntityID.create(dbContract._id));
@@ -39,6 +40,7 @@ export class ContractMapper {
       phones: contract.phones,
       contactedPhones: contract.contactedPhones, 
       options: contract.options, 
+      details: contract.details
     };
   }
 
@@ -56,6 +58,7 @@ export class ContractMapper {
       phones: contract.phones, 
       contactedPhones: contract.contactedPhones,
       options: contract.options, 
+      details: contract.details
     };
   }
 }
