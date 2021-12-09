@@ -13,11 +13,11 @@ export class ZapiProvider {
 
 
   async sendWhatsapp(phone: string, message: string) {
-    const body = this.buildMessageBody(phone, message);
-    // const body = {
-    //   phone: '55'+phone,
-    //   message
-    // }
+    // const body = this.buildMessageBody(phone, message);
+    const body = {
+      phone: '55'+phone,
+      message
+    }
     const requestConfig = {
       headers: {
         "Content-Type": "application/json",
