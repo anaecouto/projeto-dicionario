@@ -1,28 +1,25 @@
-import { Body, Controller, Post, Res } from '@nestjs/common';
+import { Controller, Post, Res } from '@nestjs/common';
 import { ApiTags } from '@nestjs/swagger';
 import { Response } from 'express';
 import { Public, Resource } from 'nest-keycloak-connect';
 import { BaseController } from 'src/shared/core/BaseController';
-import { UpdateContratDetailsPayload } from 'src/shared/core/interfaces/updateContractDetailsPayload';
-import { IContractDetails } from 'src/shared/infra/database/typeorm/entities/contract.entity';
-import { SaveContractDetailsUseCse } from '../../useCases/saveContractDetailsUseCase';
+import { SendMultipleContactUseCase } from '../../useCases/sendMultipleContactUseCase';
 
-@ApiTags('contract/details')
-@Controller('contract/details')
-@Resource('contract/details')
-export class SaveContractDetailsController extends BaseController {
-  constructor(private saveContractDetailsUseCse: SaveContractDetailsUseCse) {
+@ApiTags('contract/whatsapp/multiple')
+@Controller('contract/whatsapp/multiple')
+@Resource('contract/whatsapp/multiple')
+export class SendMultipleWhatsappContactController extends BaseController {
+  constructor(private sendMultipleContactUseCase: SendMultipleContactUseCase) {
     super();
   }
 
   @Post()
   @Public()
   async newMessage(
-    @Res() res: Response,
-    @Body() dto: UpdateContratDetailsPayload,
+    @Res() res: Response
   ) {
-    this.saveContractDetailsUseCse
-      .execute(dto)
+    this.sendMultipleContactUseCase
+      .execute()
       .then((result) => {
         this.ok(res, result);
       })
@@ -30,5 +27,4 @@ export class SaveContractDetailsController extends BaseController {
         this.handleAppError(res, err);
       });
   }
-
 }

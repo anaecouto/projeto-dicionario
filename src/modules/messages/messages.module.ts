@@ -21,6 +21,8 @@ import { ContractRepoTypeOrm } from "../correspondence/repositories/implementati
 import { ZapiProvider } from "./providers/implementation/zapi.provider";
 import UpdateContractWhatsappContactSubscriber from "../correspondence/subscriptions/updateContractWhatsappContactSubscriber";
 import { UpdateContractWhatsappUseCase } from "../correspondence/useCases/updateContractWhatsappContactUseCase";
+import SendMultipleContactsSubscriber from "./subscriptions/sendMultipleContactsSubscriber";
+import { SendMultipleWhatsappMessagesUseCase } from "./useCases/sendMultipleWhatsappMessageUseCase";
 
 @Module({
   imports: [SharedModule,
@@ -53,13 +55,15 @@ import { UpdateContractWhatsappUseCase } from "../correspondence/useCases/update
     AWSMailProvider,
     SendMailUseCase,
     SendWhatsappMessagesUseCase,
+    SendMultipleWhatsappMessagesUseCase,
     TwilioProvider,
     PushSingleContractOnQueue,
     PushMultipleContractOnQueue,
     ContractRepoTypeOrm,
     ZapiProvider,
     UpdateContractWhatsappContactSubscriber,
-    UpdateContractWhatsappUseCase
+    UpdateContractWhatsappUseCase,
+    SendMultipleContactsSubscriber,
   ],
 })
 export class MessagesModule {}

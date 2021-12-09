@@ -61,11 +61,25 @@ export class SendWhatsappMessagesUseCase
   private getOptions(contract: ContractEntity) {
     const amount = contract.options[0].alternatives[0].fullPrice;
     const installments = contract.options[0].alternatives[0].times;
-
-    return `São ${amount} em até ${installments} vezes através do crédito consignado para você.😱😱😱`
+    const modalidade = this.normalizeOption(contract.options[0].title);
+     return `São ${amount} em até ${installments} vezes através do ${modalidade} para você.😱😱😱`
   }
 
   private getName(contract: ContractEntity): string {
     return (contract.name[0].toUpperCase() + contract.name.substring(1).toLowerCase()).split(" ")[0];
+  }
+
+
+  private normalizeOption(option: string): string {
+    const split = option.split(' ');
+    const result = split.map((element) => {
+      if (element === "BB") return element;
+
+      let newPalavra = element.toLowerCase();
+      newPalavra =
+        newPalavra[0].toUpperCase() + newPalavra.substring(1).toLowerCase();
+      return newPalavra;
+    });
+    return result ? result.join(' ') : '';
   }
 }
