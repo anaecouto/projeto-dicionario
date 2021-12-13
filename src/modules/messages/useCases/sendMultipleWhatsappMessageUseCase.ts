@@ -16,23 +16,27 @@ export class SendMultipleWhatsappMessagesUseCase implements IUseCase<any, any> {
 
   async execute(payload: ContractEntity[]): Promise<any> {
     if (payload && payload.length > 0) {
-      const contracts = await Promise.all(
-        payload.map(async (contract) => {
-          const phones = PhoneUtils.foundWhatsappPhone(contract.phones);
-          if (phones && phones.length > 0) {
-            await this.firstMessage(contract, phones[0]);
-            await this.secondMessage(contract, phones[0]);
-            await this.thirdMessage(contract, phones[0]);
-            await this.fourthMessage(contract, phones[0]);
-            this.eventEmitter.emit("update.contract.whatsapp.contact", {  
-              contractId: contract._id,
-              phone: phones[0],
-              message: ''
-            } as IZapi);
-            return contract;
-          }
-        })
-      );
+      
+        const contracts = await Promise.all(
+          payload.map(async (contract) => {
+            setTimeout(async() => {
+              const phones = PhoneUtils.foundWhatsappPhone(contract.phones);
+              if (phones && phones.length > 0) {
+                await this.firstMessage(contract, phones[0]);
+                await this.secondMessage(contract, phones[0]);
+                await this.thirdMessage(contract, phones[0]);
+                await this.fourthMessage(contract, phones[0]);
+                this.eventEmitter.emit("update.contract.whatsapp.contact", {  
+                  contractId: contract._id,
+                  phone: phones[0],
+                  message: ''
+                } as IZapi);
+                return contract;
+              }
+            })
+          })
+        );
+
     }
     return null;
   }

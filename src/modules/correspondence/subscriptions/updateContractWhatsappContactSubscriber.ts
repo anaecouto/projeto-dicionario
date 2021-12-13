@@ -13,8 +13,8 @@ export default class UpdateContractWhatsappContactSubscriber {
   ) {}
 
   @OnEvent('update.contract.whatsapp.contact')
-  onStudentEnrolled(payload: IZapi) {
+  async onStudentEnrolled(payload: IZapi) {
     console.info('UPDATE CONTRACT WHATSAPP');
-    this.UpdateContractUseCase.execute(payload);
+    await this.UpdateContractUseCase.execute(payload);
   }
 }

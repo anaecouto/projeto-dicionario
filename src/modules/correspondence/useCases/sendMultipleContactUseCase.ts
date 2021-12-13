@@ -19,9 +19,11 @@ export class SendMultipleContactUseCase implements IUseCase<any, any> {
       where: {
         status: ContractStatusEnum.READY,
       },
-      take: 10
+      take: 5
     });
 
-    this.eventEmitter.emit("send.multiple.contacts", data);
+    const filteredData = data?.filter(element => element.options[0].title !== 'BB RENOVAÇÃO CONSIGNAÇÃO');
+
+    this.eventEmitter.emit("send.multiple.contacts", filteredData);
   }
 }
